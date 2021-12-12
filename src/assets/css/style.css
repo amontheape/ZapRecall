@@ -1,0 +1,27 @@
+.root {
+    width: 345px;
+    margin-top: 234px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.card {
+    width: 392px;
+    height: 524px;
+    border-radius: 16px;
+
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+    display: flex;
+    flex-direction: column;
+}
+
+button {
+    border: solid 1px #FFEF61;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+}
