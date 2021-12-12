@@ -6,13 +6,14 @@ import Home from "./components/home/Home";
 
 export default function App(){
 const [component, setComponent] = useState('home');
+const [goal, setGoal] = useState(0);
 
 	return(
 		<>
 			{
 				component==='home' 
-				? <Home setComponent={setComponent}/> 
-				: <Main component={component} setComponent={setComponent}/>
+				? <Home setComponent={setComponent} goal={goal} setGoal={setGoal}/> 
+				: <Main component={component} setComponent={setComponent} goal={goal} setGoal={setGoal}/>
 			}
 		</>
 	)

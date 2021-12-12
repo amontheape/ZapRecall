@@ -1,19 +1,30 @@
+import {useState} from 'react';
+import {decks} from '../../data/decks'
 import Header from './Header';
 import Card from './Card';
-import AnswerBox from './AnswerBox';
-import {decks} from '../../data/decks'
-import { useState } from 'react';
 
-export default function Main({component, setComponent}) {
-  const [counter, setCounter] = useState(0);
-  const [rightAnswer, setRightAnswer] = useState(0);
+export default function Main({component, setComponent, goal, setGoal}) {
+  const [status, setStatus] = useState('question'); //question, choosing, answered
+  const [counter, setCounter] = useState(1); //1-9
+  const [title, setTitle] = useState(true); // true or false
 
   return (
     <>
       <Header />
-      <Card>
-        {component === 'deck01' ? 'colocar cartas deck01' : 'colocar cartas deck02'}
-      </Card>
+
+      {title && (<div className="deck-title">{decks[component].title}</div>)}
+
+      <Card 
+        data={decks[component].cards[counter-1]}
+        status={status}
+        setStatus={setStatus}
+        counter={counter}
+        setCounter={setCounter}
+        goal={goal}
+        setGoal={setGoal}
+        setTitle={setTitle}
+        setComponent={setComponent}
+      />
     </>
   )
 }
