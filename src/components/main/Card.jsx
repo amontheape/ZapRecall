@@ -1,4 +1,4 @@
-import { useState } from "react/cjs/react.development";
+import { useState } from "react";
 import AnswerOptions from "./AnswerOptions"
 
 export default function Card({ data, status, setStatus, counter, setCounter, goal, setGoal, setTitle, setComponent, cardNumber}){
