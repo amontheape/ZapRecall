@@ -1,18 +1,28 @@
 import logo from '../../assets/img/Logo.png'
+import {decks} from '../../data/decks'
 
 export default function Home({setComponent, goal, setGoal}){
+	const keys = Object.keys(decks);
 
 	return (
 		<>
-			<img src={logo} alt="logo ZapRecall" />
+			<img className='main-logo' src={logo} alt="logo ZapRecall" />
 			<input 
+				className='goal-input'
 				type="text"
 				placeholder="Sua meta de zaps"
 				onChange={(event)=> setGoal(event.target.value)}
 				value={goal}
 			/>
-			<button onClick={() => setComponent('deck01')} > deck01 </button>
-			<button onClick={() => setComponent('deck02')} > deck02 </button>
+
+			{
+				keys.map((key)=>(
+					<button className='deck-button' onClick={() => setComponent(key)} >
+						{`Praticar ${decks[key].title}`}
+						<ion-icon name="play-forward"></ion-icon>
+					</button>
+				))
+			}
 		</>
 	);
 }

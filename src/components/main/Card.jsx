@@ -2,70 +2,84 @@ import { useState } from "react/cjs/react.development";
 import AnswerOptions from "./AnswerOptions"
 
 export default function Card({ data, status, setStatus, counter, setCounter, goal, setGoal, setTitle, setComponent}){
-	const [mistakes, setMistakes] = useState(0); //0-8
-	const [zaps, setZaps] = useState(0); //0-8
+	const [mistakes, setMistakes] = useState(0);
+	const [zaps, setZaps] = useState(0);
 
 	const cardStatus = {
 		question: () => (
 			<>
 				<span>{`${counter}/8`}</span>
-				<h2>{data.question}</h2>
-				<button className="flip-button" onClick={() => setStatus('choosing')}>virar card</button>
+				<h2 className="centered-question">{data.question}</h2>
+				<button className="flip-button" onClick={() => setStatus('choosing')}>
+					<ion-icon name="arrow-undo"></ion-icon>
+				</button>
 			</>
 		),
 
 		choosing: () => (
 			<>
 				<span>{`${counter}/8`}</span>
-				<h2>{data.question}</h2>
-				<h3>{data.answer}</h3>
-				<AnswerOptions
-					mistakes={mistakes}
-					setMistakes={setMistakes}
-					setStatus={setStatus}
-					zaps={zaps}
-					setZaps={setZaps} />
+				<div className="choosing">
+					<h2 className="top-question">{data.question}</h2>
+					<h3>{data.answer}</h3>
+					<AnswerOptions
+						mistakes={mistakes}
+						setMistakes={setMistakes}
+						setStatus={setStatus}
+						zaps={zaps}
+						setZaps={setZaps} />
+				</div>
 			</>
 		),
 
 		answered: () => (
 			<>
 				<span>{`${counter}/8`}</span>
-				<h2>{data.question}</h2>
-				<h3>{data.answer}</h3>
-				<button className="flip-button" onClick={() => 
-					{
-						setCounter(counter + 1);
-						setStatus('question');
-					}
-				}>virar card</button>
+				<div className="answered">
+					<h2 className="top-question">{data.question}</h2>
+					<h3>{data.answer}</h3>
+					<button className="flip-button" onClick={() => 
+						{
+							setCounter(counter + 1);
+							setStatus('question');
+						}}>
+						<ion-icon name="arrow-undo"></ion-icon>
+					</button>
+				</div>
 			</>
 		)
 	}
 
-	function handleEnd() {
+	function HandleEnd() {
+		setTitle(false);
 
 		return goal !== zaps
 			? (
-				<>
-					<span>Putz.. &#128549;</span>
-					<p>{`Você esqueceu ${mistakes} flashcards..`}</p>
+				<div className="conclusion">
+					<span>Putz.. 😥</span>
+					<p>{`Você atingiu ${zaps} da sua meta de ${goal} zaps..`}</p>
 					<p>Não desanime! Na próxima você consegue!</p>
-					<button onClick={() => reset()}>Tentar novamente</button>
-				</>
+					<button className='deck-button' onClick={() => reset()}>
+						Tentar novamente
+						<ion-icon name="play-forward"></ion-icon>
+					</button>
+				</div>
 			)
 
 			: (
-				<>
-					<span>PARABÉNS! </span>
-					<p>Você não esqueceu de nenhum flashcard!</p>
-					<button onClick={() => reset()}>Tentar novamente</button>
-				</>
+				<div className="conclusion">
+					<span>PARABÉNS! 🥳</span>
+					<p>{`Você atingiu sua meta de ${goal} zaps!`}</p>
+					<button className='deck-button' onClick={() => reset()}>
+						Tentar novamente
+						<ion-icon name="play-forward"></ion-icon>
+					</button>
+				</div>
 			)
 	}
 
 	function reset() {
-		setGoal(0);
+		setGoal(undefined);
 		setComponent('home');
 		setStatus('question');
 		setCounter(1);
@@ -76,10 +90,7 @@ export default function Card({ data, status, setStatus, counter, setCounter, goa
 	return (
 		<>
 			{ counter === 9 
-				? () => {
-					setTitle(false);
-					handleEnd();
-				}  
+				? <HandleEnd />  
 				: (<div className="card">{cardStatus[status]()}</div>)
 			}
 		</>
