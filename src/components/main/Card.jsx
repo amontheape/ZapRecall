@@ -4,6 +4,7 @@ import AnswerOptions from "./AnswerOptions"
 export default function Card({ data, status, setStatus, counter, setCounter, goal, setGoal, setTitle, setComponent, cardNumber}){
 	const [mistakes, setMistakes] = useState(0);
 	const [zaps, setZaps] = useState(0);
+	const [color, setColor] = useState('');
 
 	const cardStatus = {
 		question: () => (
@@ -27,7 +28,9 @@ export default function Card({ data, status, setStatus, counter, setCounter, goa
 						setMistakes={setMistakes}
 						setStatus={setStatus}
 						zaps={zaps}
-						setZaps={setZaps} />
+						setZaps={setZaps}
+						setColor={setColor}
+					/>
 				</div>
 			</>
 		),
@@ -97,7 +100,7 @@ export default function Card({ data, status, setStatus, counter, setCounter, goa
 		<>
 			{ counter === 9 
 				? <HandleEnd />  
-				: (<div className="card" data-identifier="flashcard">{cardStatus[status]()}</div>)
+				: (<div className={`card ${color}`} data-identifier="flashcard">{cardStatus[status]()}</div>)
 			}
 		</>
 	)
