@@ -43,6 +43,7 @@ export default function Card({ data, status, setStatus, counter, setCounter, goa
 					<h3>{data.answer}</h3>
 					<button className="flip-button" data-identifier="arrow" onClick={() => 
 						{
+							setColor('');
 							setCounter(counter + 1);
 							setStatus('question');
 						}}>
