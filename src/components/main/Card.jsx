@@ -53,11 +53,12 @@ export default function Card({ data, status, setStatus, counter, setCounter, goa
 	function HandleEnd() {
 		setTitle(false);
 
-		return goal !== zaps
+		return parseInt(goal) !== parseInt(zaps)
 			? (
 				<div className="conclusion">
 					<span>Putz.. 😥</span>
 					<p>{`Você atingiu ${zaps} da sua meta de ${goal} zaps..`}</p>
+					{mistakes>0 && <p>{`Você também esqueceu de ${mistakes} flashcards..`}</p>}
 					<p>Não desanime! Na próxima você consegue!</p>
 					<button className='deck-button' onClick={() => reset()}>
 						Tentar novamente
@@ -70,6 +71,7 @@ export default function Card({ data, status, setStatus, counter, setCounter, goa
 				<div className="conclusion">
 					<span>PARABÉNS! 🥳</span>
 					<p>{`Você atingiu sua meta de ${goal} zaps!`}</p>
+					{mistakes > 0 && <p>{`Porém, você esqueceu de ${mistakes} flashcards..`}</p>}
 					<button className='deck-button' onClick={() => reset()}>
 						Tentar novamente
 						<ion-icon name="play-forward"></ion-icon>

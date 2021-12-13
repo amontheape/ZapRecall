@@ -4,9 +4,9 @@ import Header from './Header';
 import Card from './Card';
 
 export default function Main({component, setComponent, goal, setGoal}) {
-  const [status, setStatus] = useState('question'); //question, choosing, answered
-  const [counter, setCounter] = useState(1); //1-9
-  const [title, setTitle] = useState(true); // true or false
+  const [status, setStatus] = useState('question');
+  const [counter, setCounter] = useState(1);
+  const [title, setTitle] = useState(true);
 
   return (
     <>

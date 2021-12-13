@@ -45,7 +45,7 @@ h3 {
 }
 
 .main-logo {
-	margin-top: 234px;
+	margin-top: 176px;
 	margin-bottom: 176px;
 }
 
@@ -57,7 +57,6 @@ h3 {
 	font-size: 16px;
 	line-height: 19px;
 
-	margin-bottom: 20px;
 	padding: 15px 16px;
 
 	border-radius: 12px;
@@ -239,4 +238,22 @@ h3 {
 	text-align: center;
 
 	margin-bottom: 16px;
+}
+
+.error-span {
+	width: 345px;
+	height: 40px;
+
+	font-weight: normal;
+	font-size: 16px;
+	line-height: 18px;
+
+	color: red;
+
+	/* border-radius: 12px;
+	background-color: lightcoral; */
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
