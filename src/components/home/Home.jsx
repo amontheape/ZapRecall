@@ -29,7 +29,7 @@ export default function Home({setComponent, goal, setGoal}){
 
 			{
 				keys.map((key)=>(
-					<button className='deck-button' onClick={() => handleGoal(key)} >
+					<button key={key} className='deck-button' onClick={() => handleGoal(key)} data-identifier="start-zap-recall">
 						{`Praticar ${decks[key].title}`}
 						<ion-icon name="play-forward"></ion-icon>
 					</button>

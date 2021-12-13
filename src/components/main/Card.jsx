@@ -1,16 +1,16 @@
 import { useState } from "react/cjs/react.development";
 import AnswerOptions from "./AnswerOptions"
 
-export default function Card({ data, status, setStatus, counter, setCounter, goal, setGoal, setTitle, setComponent}){
+export default function Card({ data, status, setStatus, counter, setCounter, goal, setGoal, setTitle, setComponent, cardNumber}){
 	const [mistakes, setMistakes] = useState(0);
 	const [zaps, setZaps] = useState(0);
 
 	const cardStatus = {
 		question: () => (
 			<>
-				<span>{`${counter}/8`}</span>
+				<span data-identifier="counter">{`${counter}/${cardNumber}`}</span>
 				<h2 className="centered-question">{data.question}</h2>
-				<button className="flip-button" onClick={() => setStatus('choosing')}>
+				<button className="flip-button" data-identifier="arrow" onClick={() => setStatus('choosing')}>
 					<ion-icon name="arrow-undo"></ion-icon>
 				</button>
 			</>
@@ -18,7 +18,7 @@ export default function Card({ data, status, setStatus, counter, setCounter, goa
 
 		choosing: () => (
 			<>
-				<span>{`${counter}/8`}</span>
+				<span data-identifier="counter">{`${counter}/${cardNumber}`}</span>
 				<div className="choosing">
 					<h2 className="top-question">{data.question}</h2>
 					<h3>{data.answer}</h3>
@@ -34,11 +34,11 @@ export default function Card({ data, status, setStatus, counter, setCounter, goa
 
 		answered: () => (
 			<>
-				<span>{`${counter}/8`}</span>
+				<span data-identifier="counter">{`${counter}/${cardNumber}`}</span>
 				<div className="answered">
 					<h2 className="top-question">{data.question}</h2>
 					<h3>{data.answer}</h3>
-					<button className="flip-button" onClick={() => 
+					<button className="flip-button" data-identifier="arrow" onClick={() => 
 						{
 							setCounter(counter + 1);
 							setStatus('question');
@@ -53,13 +53,16 @@ export default function Card({ data, status, setStatus, counter, setCounter, goa
 	function HandleEnd() {
 		setTitle(false);
 
-		return parseInt(goal) !== parseInt(zaps)
+		return parseInt(zaps) >= parseInt(goal)
 			? (
 				<div className="conclusion">
-					<span>Putz.. 😥</span>
-					<p>{`Você atingiu ${zaps} da sua meta de ${goal} zaps..`}</p>
-					{mistakes>0 && <p>{`Você também esqueceu de ${mistakes} flashcards..`}</p>}
-					<p>Não desanime! Na próxima você consegue!</p>
+					<span>PARABÉNS! 🥳</span>
+					{	
+						zaps > goal 
+						? <p>{`Você atingiu ${zaps} zaps! Sua meta era ${goal} zaps.`}</p> 
+						: <p>{`Você atingiu sua meta de ${goal} zaps!`}</p>
+					}
+					{mistakes > 0 && <p>{`Porém, você esqueceu de ${mistakes} flashcards..`}</p>}
 					<button className='deck-button' onClick={() => reset()}>
 						Tentar novamente
 						<ion-icon name="play-forward"></ion-icon>
@@ -69,9 +72,10 @@ export default function Card({ data, status, setStatus, counter, setCounter, goa
 
 			: (
 				<div className="conclusion">
-					<span>PARABÉNS! 🥳</span>
-					<p>{`Você atingiu sua meta de ${goal} zaps!`}</p>
-					{mistakes > 0 && <p>{`Porém, você esqueceu de ${mistakes} flashcards..`}</p>}
+					<span>Putz.. 😥</span>
+					<p>{`Você atingiu ${zaps} da sua meta de ${goal} zaps..`}</p>
+					{mistakes > 0 && <p>{`Você também esqueceu de ${mistakes} flashcards..`}</p>}
+					<p>Não desanime! Na próxima você consegue!</p>
 					<button className='deck-button' onClick={() => reset()}>
 						Tentar novamente
 						<ion-icon name="play-forward"></ion-icon>
@@ -81,7 +85,7 @@ export default function Card({ data, status, setStatus, counter, setCounter, goa
 	}
 
 	function reset() {
-		setGoal(undefined);
+		setGoal('');
 		setComponent('home');
 		setStatus('question');
 		setCounter(1);
@@ -93,7 +97,7 @@ export default function Card({ data, status, setStatus, counter, setCounter, goa
 		<>
 			{ counter === 9 
 				? <HandleEnd />  
-				: (<div className="card">{cardStatus[status]()}</div>)
+				: (<div className="card" data-identifier="flashcard">{cardStatus[status]()}</div>)
 			}
 		</>
 	)

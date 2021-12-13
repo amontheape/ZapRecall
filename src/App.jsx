@@ -6,7 +6,7 @@ import Home from "./components/home/Home";
 
 export default function App(){
 const [component, setComponent] = useState('home');
-const [goal, setGoal] = useState();
+const [goal, setGoal] = useState('');
 
 	return(
 		<>

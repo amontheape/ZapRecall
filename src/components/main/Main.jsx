@@ -24,6 +24,7 @@ export default function Main({component, setComponent, goal, setGoal}) {
         setGoal={setGoal}
         setTitle={setTitle}
         setComponent={setComponent}
+        cardNumber={decks[component].cards.length}
       />
     </>
   )
